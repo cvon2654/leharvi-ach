@@ -29,7 +29,7 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force Solver | Out-Null
-          Copy-Item dist/Solver.exe, Solver.bat, README.md Solver/
+          Copy-Item dist/Solver.exe, Solver.bat, Install-Solver.bat, Uninstall-Solver.bat, README.md Solver/
           Copy-Item -Recurse excel Solver/excel
           Compress-Archive -Path Solver -DestinationPath Solver-windows.zip
       - uses: actions/upload-artifact@v4

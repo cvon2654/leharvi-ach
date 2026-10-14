@@ -8,13 +8,14 @@ Attribute VB_Name = "AccountingSolver"
 '  SolveAutoPlay   : same, but plays by itself (one box every ~0.7 s).
 '  SolveAllAtOnce  : fills every box immediately.
 '
-'  Setup (once):  see README.md, "Use it inside Excel".
+'  Setup (once):  double-click Install-Solver.bat (or see README.md).
 '  Works offline. Needs the Solver folder (Solver.exe or Python + run_solver.py).
 '==========================================================================
 Option Explicit
 
-' >>> Change this to wherever you put the Solver folder <<<
+' >>> Install-Solver.bat sets these two lines for you <<<
 Public Const SOLVER_FOLDER As String = "C:\Solver"
+Public Const PYTHON_EXE As String = "pythonw"
 
 Private Const AUTO_DELAY_SECONDS As Double = 0.7
 
@@ -37,7 +38,7 @@ Private Function Launcher() As String
     If Dir(folder & "Solver.exe") <> "" Then
         Launcher = """" & folder & "Solver.exe"""
     ElseIf Dir(folder & "run_solver.py") <> "" Then
-        Launcher = "pythonw """ & folder & "run_solver.py"""
+        Launcher = """" & PYTHON_EXE & """ """ & folder & "run_solver.py"""
     Else
         Launcher = ""
     End If

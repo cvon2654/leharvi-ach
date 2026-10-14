@@ -52,30 +52,37 @@ The Solver window shows the answers **one box at a time**: click **Next box ›*
 
 On a Mac, double-click `Solver.command` (it needs Python 3 from python.org).
 
-### 3. Use it inside Excel (button in the ribbon, Windows)
+### 3. Put it inside Excel (one click, Windows)
 
-This fills the boxes directly in the workbook you have open, one at a time. Each box is
-selected and explained as it's filled.
+1. **Close Excel.**
+2. In the Solver folder, double-click **`Install-Solver.bat`**. If Windows shows "Windows
+   protected your PC", click *More info → Run anyway*.
+3. Open Excel. There's a new **Accounting Solver** tab with three buttons. There's also a
+   Solver button on the Quick Access Toolbar and a **Solver** shortcut on your desktop.
 
-1. In Excel press **Alt + F11** to open the VBA editor.
-2. In the left panel, select **VBAProject (PERSONAL.XLSB)**. If you don't have it,
-   record any macro once with *Store macro in: Personal Macro Workbook*, then stop.
-3. **File → Import File…** and choose `excel\AccountingSolver.bas`.
-4. At the top of the module, set `SOLVER_FOLDER` to where you unzipped Solver
-   (default `C:\Solver`).
-5. Close the editor. Go to **File → Options → Customize Ribbon** (or *Quick Access
-   Toolbar*), choose *Macros*, and add **SolveStepByStep** (and **SolveAutoPlay** /
-   **SolveAllAtOnce** if you like).
+The installer copies Solver to `%LOCALAPPDATA%\Solver` (no admin rights needed) and puts
+the macros in your Personal Macro Workbook, so the buttons work in every workbook. To
+remove everything, run `Uninstall-Solver.bat`.
 
-Now open a problem, **save it as .xlsx or .xlsm**, and click your button:
+<details><summary>Doing it by hand instead</summary>
 
-- **SolveStepByStep:** fills one box, shows what it is and its formula. Click **OK** for
+1. In Excel press **Alt + F11**, select **VBAProject (PERSONAL.XLSB)** (record any macro
+   once into the *Personal Macro Workbook* if it isn't there), then **File → Import
+   File…** → `excel\AccountingSolver.bas`.
+2. Set `SOLVER_FOLDER` at the top of the module to your Solver folder.
+3. **File → Options → Customize Ribbon**, choose *Macros*, add **SolveStepByStep**,
+   **SolveAutoPlay**, **SolveAllAtOnce**.
+</details>
+
+Now open a problem, **save it as .xlsx or .xlsm**, and click a button:
+
+- **Step by Step:** fills one box, shows what it is and its formula. Click **OK** for
   the next box, or **Cancel** to fill the rest at once.
-- **SolveAutoPlay:** fills one box about every 0.7 seconds while you watch.
-- **SolveAllAtOnce:** fills everything immediately.
+- **Auto Play:** fills one box about every 0.7 seconds while you watch.
+- **Solve All:** fills everything immediately.
 
 > Excel also has a built-in "Solver" add-in for optimization (Data tab). That's a
-> different tool. These macros are named `Solve…` so they don't clash with it.
+> different tool. This one lives on its own **Accounting Solver** tab.
 
 ### Command line
 
