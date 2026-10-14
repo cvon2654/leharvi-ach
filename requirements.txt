@@ -1,0 +1,2 @@
+# Bundled in vendor/ so Solver works offline; listed here for pip users.
+openpyxl==3.1.5

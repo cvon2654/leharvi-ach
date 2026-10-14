@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+build/
+dist/
+*.spec
+Solver.exe
+*- Solved.xlsx
+*- Solved.xlsm
+~$*
+.pytest_cache/

@@ -1,0 +1,38 @@
+name: Test and build Solver.exe
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: sudo apt-get update && sudo apt-get install -y libreoffice-calc
+      - run: pip install vendor/*.whl pytest
+      - run: python -m pytest -q tests
+
+  windows-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install vendor/openpyxl-3.1.5-py2.py3-none-any.whl vendor/et_xmlfile-2.0.0-py3-none-any.whl pyinstaller
+      - run: python -m PyInstaller --noconfirm --onefile --windowed --name Solver run_solver.py
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force Solver | Out-Null
+          Copy-Item dist/Solver.exe, Solver.bat, README.md Solver/
+          Copy-Item -Recurse excel Solver/excel
+          Compress-Archive -Path Solver -DestinationPath Solver-windows.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Solver-windows
+          path: Solver-windows.zip
